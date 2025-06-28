@@ -11,6 +11,7 @@ import os
 import time
 import json
 import base64
+from winshell import win32con
 from pathlib import Path
 from typing import Optional, Tuple
 import hashlib
@@ -152,7 +153,7 @@ class PasswordDialog:
         
         # Indicador de fortaleza
         if self.is_new_password:
-            self.strength_label = ttk.Label(main_frame, text="Fortaleza: ")
+            self.strength_label = ttk.Label(main_frame, text="Strenght: ")
             self.strength_label.pack(anchor=tk.W)
             
             self.strength_bar = ttk.Progressbar(main_frame, length=300, mode='determinate')
@@ -191,19 +192,19 @@ class PasswordDialog:
         self.strength_bar['value'] = strength
         
         if strength < 30:
-            strength_text = "Débil"
+            strength_text = "Weak"
             color = "red"
         elif strength < 60:
-            strength_text = "Media"
+            strength_text = "Medium"
             color = "orange"
         elif strength < 80:
-            strength_text = "Fuerte"
+            strength_text = "Strong"
             color = "blue"
         else:
-            strength_text = "Muy Fuerte"
+            strength_text = "Very Strong"
             color = "green"
         
-        self.strength_label.config(text=f"Fortaleza: {strength_text}")
+        self.strength_label.config(text=f"Strenght: {strength_text}")
     
     def calculate_password_strength(self, password: str) -> int:
         """Calcular fortaleza de contraseña (0-100)"""
@@ -283,8 +284,8 @@ class QRAESFileEncryptorGUI:
     
     def setup_window(self):
         """Configurar ventana principal"""
-        self.root.title("QR-AES-256 File Encryptor")
-        self.root.geometry("800x600")
+        self.root.title("QuantumARK - Quantum Resistance AES-256 File Encryptor 🔐 (QR-AES-256)")
+        self.root.geometry("800x700")
         self.root.minsize(600, 400)
         
         # Icono (si existe)
@@ -307,7 +308,7 @@ class QRAESFileEncryptorGUI:
         # Estilo para etiquetas de título
         style.configure(
             "Title.TLabel",
-            font=("Arial", 12, "bold"),
+            font=("Montserrat", 12, "bold"),
             foreground="#2c3e50"
         )
     
@@ -317,20 +318,31 @@ class QRAESFileEncryptorGUI:
         main_frame = ttk.Frame(self.root, padding="20")
         main_frame.pack(fill=tk.BOTH, expand=True)
         
-        # Título
+        # Título centrado
         title_label = ttk.Label(
-            main_frame, 
-            text="🔐 QR-AES-256 File Encryptor", 
-            style="Title.TLabel"
+            main_frame,
+            text="ＱｕａｎｔｕｍＡＲＫ",
+            style="Title.TLabel",
+            font=("Montserrat", 20, "bold"),
+            justify="center"
         )
-        title_label.pack(pady=(0, 20))
+        title_label.pack(pady=(0, 5), anchor="center")
         
         # Descripción
-        desc_text = ("Cifrador de archivos resistente a computadoras cuánticas\n"
-                    "Utiliza algoritmo QR-AES-256 con clave de 512 bits")
-        desc_label = ttk.Label(main_frame, text=desc_text, justify=tk.CENTER)
-        desc_label.pack(pady=(0, 30))
-        
+        desc_text = (
+            "Cifrador de archivos resistente a computadoras cuánticas\n"
+            "Utiliza algoritmo QR-AES-256 con clave de 512 bits\n"
+            "ᴍᴀᴅᴇ ᴡɪᴛʜ ♥ ʙʏ ᴍᴀᴜʙᴇɴɴᴇᴛᴛꜱ."
+        )
+        # Etiqueta de descripción
+        desc_label = ttk.Label(
+            main_frame,
+            text=desc_text,
+            justify="center",
+            font=("Arial", 10,),
+            anchor="center"
+        )
+        desc_label.pack(pady=(0, 30), anchor="center")
         # Notebook para pestañas
         self.notebook = ttk.Notebook(main_frame)
         self.notebook.pack(fill=tk.BOTH, expand=True)
@@ -489,6 +501,7 @@ IMPORTANTE:
 Versión: 1.0.0
 Algoritmo: QR-AES-256 (Quantum-Resistant)
 Desarrollado con propósitos educativos y de investigación.
+ᴍᴀᴅᴇ ᴡɪᴛʜ ♥ ʙʏ ᴍᴀᴜʙᴇɴɴᴇᴛᴛꜱ..
         """
         
         info_text.insert(tk.END, info_content)
@@ -535,9 +548,9 @@ Desarrollado con propósitos educativos y de investigación.
             file_path = Path(filename)
             file_size = file_path.stat().st_size
             
-            # Calcular checksum
+            # Calcular checksum SHA-256
             with open(filename, 'rb') as f:
-                file_hash = hashlib.sha256(f.read()).hexdigest()[:16]
+                file_hash = hashlib.sha3_256(f.read()).hexdigest()[:16]
             
             info = f"""Nombre: {file_path.name}
 Tamaño: {self.format_file_size(file_size)}
@@ -609,7 +622,7 @@ Estado: Listo para descifrar"""
     def derive_key_from_password(self, password: str, salt: bytes) -> bytes:
         """Derivar clave de 512 bits desde contraseña"""
         # Usar PBKDF2 con múltiples iteraciones
-        key = hashlib.pbkdf2_hmac('sha256', password.encode(), salt, 100000, 64)
+        key = hashlib.pbkdf2_hmac('sha3_256', password.encode(), salt, 100000, 64)
         return key
     
     def encrypt_file(self):
@@ -938,7 +951,7 @@ def main():
     """Función principal"""
     try:
         # Verificar dependencias
-        required_modules = ['tkinter', 'hashlib', 'secrets', 'threading']
+        required_modules = ['tkinter', 'hashlib', 'secrets', 'threading','winshell']
         missing_modules = []
         
         for module in required_modules:
@@ -961,7 +974,9 @@ def main():
             "• Use contraseñas fuertes (>12 caracteres)\n"
             "• Guarde sus contraseñas de forma segura\n"
             "• Los archivos .qr256 solo se pueden descifrar con la contraseña correcta\n\n"
-            "¡Mantenga sus datos seguros contra amenazas cuánticas!"
+            "¡Mantenga sus datos seguros contra amenazas cuánticas!" \
+            "" \
+            "\nᴍᴀᴅᴇ ᴡɪᴛʜ ♥ ʙʏ ᴍᴀᴜʙᴇɴɴᴇᴛᴛꜱ." \
         )
         
         app.run()
