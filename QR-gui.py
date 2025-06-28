@@ -11,10 +11,18 @@ import os
 import time
 import json
 import base64
-from winshell import win32con
 from pathlib import Path
 from typing import Optional, Tuple
 import hashlib
+import platform
+
+# Platform-specific imports
+IS_WINDOWS = platform.system() == 'Windows'
+if IS_WINDOWS:
+    try:
+        from winshell import win32con
+    except ImportError:
+        IS_WINDOWS = False
 
 # Importar nuestro algoritmo QR-AES-256
 # (En implementación real, esto sería: from qr_aes_256 import QRAES256, generate_qr_key)
@@ -284,16 +292,13 @@ class QRAESFileEncryptorGUI:
     
     def setup_window(self):
         """Configurar ventana principal"""
-        self.root.title("QuantumARK - Quantum Resistance AES-256 File Encryptor 🔐 (QR-AES-256)")
+        self.root.title("🛡️ QuantumARK - Failure is Not an Option")
         self.root.geometry("800x700")
         self.root.minsize(600, 400)
         
-        # Icono (si existe)
-        try:
-            self.root.iconbitmap("lock_icon.ico")
-        except:
-            pass
-    
+        self.root.iconbitmap("icono.ico")
+        self.root.resizable(True, True)
+
     def setup_styles(self):
         """Configurar estilos de la interfaz"""
         style = ttk.Style()
@@ -309,7 +314,7 @@ class QRAESFileEncryptorGUI:
         style.configure(
             "Title.TLabel",
             font=("Montserrat", 12, "bold"),
-            foreground="#2c3e50"
+            foreground="#49a4ff"
         )
     
     def create_widgets(self):
@@ -461,7 +466,7 @@ class QRAESFileEncryptorGUI:
         info_text.pack(fill=tk.BOTH, expand=True)
         
         info_content = """
-🔐 QR-AES-256 File Encryptor
+🔐 QuantumARK
 
 CARACTERÍSTICAS PRINCIPALES:
 • Algoritmo QR-AES-256 resistente a computadoras cuánticas
@@ -925,6 +930,9 @@ class QRAESFileManager:
 
 def create_desktop_shortcut():
     """Crear acceso directo en el escritorio (Windows)"""
+    if not IS_WINDOWS:
+        return False
+    
     try:
         import winshell
         from win32com.client import Dispatch
@@ -951,7 +959,9 @@ def main():
     """Función principal"""
     try:
         # Verificar dependencias
-        required_modules = ['tkinter', 'hashlib', 'secrets', 'threading','winshell']
+        required_modules = ['tkinter', 'hashlib', 'secrets', 'threading']
+        if IS_WINDOWS:
+            required_modules.append('winshell')
         missing_modules = []
         
         for module in required_modules:
@@ -970,11 +980,11 @@ def main():
         # Mensaje de bienvenida
         messagebox.showinfo(
             "Bienvenido", 
-            "¡Bienvenido a QR-AES-256 File Encryptor!\n\n"
+            "¡Bienvenido a QuantumARK 🚀\n\n"
             "• Use contraseñas fuertes (>12 caracteres)\n"
             "• Guarde sus contraseñas de forma segura\n"
             "• Los archivos .qr256 solo se pueden descifrar con la contraseña correcta\n\n"
-            "¡Mantenga sus datos seguros contra amenazas cuánticas!" \
+            "¡Mantenga sus datos seguros contra amenazas cuánticas!\n\n" \
             "" \
             "\nᴍᴀᴅᴇ ᴡɪᴛʜ ♥ ʙʏ ᴍᴀᴜʙᴇɴɴᴇᴛᴛꜱ." \
         )
