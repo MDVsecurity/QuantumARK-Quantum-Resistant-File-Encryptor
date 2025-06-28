@@ -293,11 +293,25 @@ class QRAESFileEncryptorGUI:
     def setup_window(self):
         """Configurar ventana principal"""
         self.root.title("🛡️ QuantumARK - Failure is Not an Option")
-        self.root.geometry("800x700")
+        self.root.geometry("800x900")
         self.root.minsize(600, 400)
         
-        self.root.iconbitmap("icono.ico")
-        self.root.resizable(True, True)
+        # Icono de la aplicación en MAC y Windows
+        if IS_WINDOWS:
+            try:
+                self.root.iconbitmap("assets/atom.ico")
+            except Exception as e:
+                print(f"Error al cargar icono: {e}")
+        elif platform.system() == 'Darwin':  # macOS
+            try:
+                icon_path = os.path.join(os.path.dirname(__file__), "assets", "atom.png")
+                if os.path.exists(icon_path):
+                    self.icon_image = tk.PhotoImage(file=icon_path)
+                    self.root.iconphoto(False, self.icon_image)
+                else:
+                    print(f"Icono no encontrado en: {icon_path}")
+            except Exception as e:
+                print(f"Error al cargar icono: {e}")
 
     def setup_styles(self):
         """Configurar estilos de la interfaz"""
@@ -314,7 +328,7 @@ class QRAESFileEncryptorGUI:
         style.configure(
             "Title.TLabel",
             font=("Montserrat", 12, "bold"),
-            foreground="#49a4ff"
+            foreground="#ae00ff"
         )
     
     def create_widgets(self):
@@ -323,6 +337,13 @@ class QRAESFileEncryptorGUI:
         main_frame = ttk.Frame(self.root, padding="20")
         main_frame.pack(fill=tk.BOTH, expand=True)
         
+        # Logo de QuantumARK
+        logo_path = Path(__file__).parent / "assets" / "atom.png"
+        if logo_path.exists():
+            self.logo_image = tk.PhotoImage(file=logo_path)
+            logo_label = ttk.Label(main_frame, image=self.logo_image)
+            logo_label.pack(pady=(0, 10), anchor="center")
+
         # Título centrado
         title_label = ttk.Label(
             main_frame,
