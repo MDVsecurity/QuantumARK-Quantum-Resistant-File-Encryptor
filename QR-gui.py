@@ -292,8 +292,8 @@ class QRAESFileEncryptorGUI:
     
     def setup_window(self):
         """Configurar ventana principal"""
-        self.root.title("🛡️ QuantumARK - Failure is Not an Option")
-        self.root.geometry("800x900")
+        self.root.title("QuantumARK - Failure is Not an Option")
+        self.root.geometry("800x800")
         self.root.minsize(600, 400)
         
         # Icono de la aplicación en MAC y Windows
@@ -328,7 +328,7 @@ class QRAESFileEncryptorGUI:
         style.configure(
             "Title.TLabel",
             font=("Montserrat", 12, "bold"),
-            foreground="#ae00ff"
+            foreground="#000000"
         )
     
     def create_widgets(self):
@@ -347,12 +347,32 @@ class QRAESFileEncryptorGUI:
         # Título centrado
         title_label = ttk.Label(
             main_frame,
-            text="ＱｕａｎｔｕｍＡＲＫ",
+            text="QuantumARK",
             style="Title.TLabel",
-            font=("Montserrat", 20, "bold"),
+            font=("Quattrocento", 24, "bold"),
+            foreground="#000000",
             justify="center"
         )
         title_label.pack(pady=(0, 5), anchor="center")
+
+        # Quattrocento font for title e importar desde el archivo
+        font_path = Path(__file__).parent / "assets" / "Quattrocento.ttf"
+        if font_path.exists():
+            self.title_font = tk.font.Font(family="Quattrocento", size=24, weight="bold")
+            title_label.configure(font=self.title_font)
+        else:
+            print(f"Font not found: {font_path}")
+
+
+        # Subtitulo
+        subtitle_label = ttk.Label(
+            main_frame,
+            text='"ꜰᴀɪʟᴜʀᴇ ɪꜱ ɴᴏᴛ ᴀɴ ᴏᴘᴛɪᴏɴ"',
+            font=("Arial", 10,"bold"),
+            foreground="#555555",
+            justify="center"
+        )
+        subtitle_label.pack(pady=(0, 20), anchor="center")
         
         # Descripción
         desc_text = (
@@ -365,7 +385,7 @@ class QRAESFileEncryptorGUI:
             main_frame,
             text=desc_text,
             justify="center",
-            font=("Arial", 10,),
+            font=("Montserrat", 10,),
             anchor="center"
         )
         desc_label.pack(pady=(0, 30), anchor="center")
