@@ -1,8 +1,8 @@
 # ⚛️ QuantumARK - Quantum-Resistant File Encryptor
 
-*Sorry for any mistakes, still learning every day! | ¡Perdón por los errores, sigo aprendiendo día a día!* 😊
-
 <div align="center">
+
+*Sorry for any mistakes, still learning every day! | ¡Perdón por los errores, sigo aprendiendo día a día!* 😊
 
 ![QuantumARK Logo](https://img.shields.io/badge/QuantumARK-v1.0.0-purple?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJMMTMuMDkgOC4yNkwyMCA5TDEzLjA5IDE1Ljc0TDEyIDIyTDEwLjkxIDE1Ljc0TDQgOUwxMC45MSA4LjI2TDEyIDJaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K)
 
