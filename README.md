@@ -12,7 +12,7 @@
 [![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)]()
 [![GUI](https://img.shields.io/badge/interface-Modern%20GUI-green.svg)]()
 
-[🚀 Descarga](#descarga) • [📖 Documentación](#documentación) • [🔬 Tecnología](#tecnología-qr-aes-256) • [🛡️ Seguridad](#análisis-de-seguridad)
+[🚀 Descarga](#descarga) • [🛡️ Seguridad](#análisis-de-seguridad)
 
 </div>
 
