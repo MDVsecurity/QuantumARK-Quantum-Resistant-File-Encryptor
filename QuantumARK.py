@@ -30,7 +30,10 @@ if IS_WINDOWS:
 # Para esta demo, incluiremos una versión simplificada
 import secrets
 import struct
-from Crypto.Random import get_random_bytes
+from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
+from cryptography.hazmat.backends import default_backend
+import os
 
 
 class SimpleQRAES:
@@ -44,7 +47,7 @@ class SimpleQRAES:
     def encrypt(self, data: bytes) -> Tuple[bytes, bytes]:
         """Cifra datos (versión simplificada para demo)"""
         # En implementación real usaríamos el QR-AES-256 completo
-        iv = get_random_bytes(16)
+        iv = os.urandom(16)
         
         # Para demo: XOR simple con hash de la clave
         key_hash = hashlib.sha3_256(self.key).digest()
@@ -667,8 +670,15 @@ Estado: Listo para descifrar"""
     
     def derive_key_from_password(self, password: str, salt: bytes) -> bytes:
         """Derivar clave de 512 bits desde contraseña"""
-        # Usar PBKDF2 con múltiples iteraciones
-        key = hashlib.pbkdf2_hmac('sha3_256', password.encode(), salt, 100000, 64)
+        # Usar PBKDF2 con múltiples iteraciones usando cryptography
+        kdf = PBKDF2HMAC(
+            algorithm=hashes.SHA256(),
+            length=64,
+            salt=salt,
+            iterations=100000,
+            backend=default_backend()
+        )
+        key = kdf.derive(password.encode())
         return key
     
     def encrypt_file(self):
@@ -697,7 +707,7 @@ Estado: Listo para descifrar"""
             self.root.after(0, lambda: self.set_operation_state(True, "Cifrando archivo..."))
             
             # Generar salt aleatorio
-            salt = get_random_bytes(32)
+            salt = os.urandom(32)
             
             # Derivar clave
             key = self.derive_key_from_password(password, salt)
@@ -897,7 +907,7 @@ class QRAESFileManager:
         for filename in file_list:
             try:
                 # Generar salt único por archivo
-                salt = get_random_bytes(32)
+                salt = os.urandom(32)
                 
                 # Derivar clave
                 key = QRAESFileEncryptorGUI().derive_key_from_password(password, salt)
