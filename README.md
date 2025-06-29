@@ -4,6 +4,12 @@
 
 *Sorry for any mistakes, still learning every day! | ¡Perdón por los errores, sigo aprendiendo día a día!* 😊
 
+**🛡️ Security Status: Code continuously monitored and audited by Bandit & Semgrep for maximum security**
+
+[![Security: Bandit](https://img.shields.io/badge/Security-Bandit%20Monitored-yellow?style=flat&logo=python&logoColor=white)](https://bandit.readthedocs.io/)
+[![Static Analysis: Semgrep](https://img.shields.io/badge/Analysis-Semgrep%20Active-success?style=flat&logo=semgrep&logoColor=white)](https://semgrep.dev/)
+[![Vulnerability Scan](https://img.shields.io/badge/Scan-Continuous-blue?style=flat&logo=security&logoColor=white)]()
+
 ![QuantumARK Logo](https://img.shields.io/badge/QuantumARK-v1.0.0-purple?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJMMTMuMDkgOC4yNkwyMCA5TDEzLjA5IDE1Ljc0TDEyIDIyTDEwLjkxIDE1Ljc0TDQgOUwxMC45MSA4LjI2TDEyIDJaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K)
 
 **Cifrador de archivos resistente a computadoras cuánticas**  
