@@ -59,7 +59,7 @@ cd QuantumARK
 pip install -r requirements.txt
 
 # Ejecutar
-python QR-gui.py
+python QuantumARK.py
 ```
 
 ---
