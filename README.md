@@ -9,7 +9,7 @@
 <div align="center">
 
 <img src="https://raw.githubusercontent.com/PyCQA/bandit/main/logo/logotype-sm.png" alt="Bandit Security" height="40" style="margin: 10px;">
-<img src="[https://img.shields.io/badge/🔍-Continuous%20Monitoring-blue?style=for-the-badge](https://upload.wikimedia.org/wikipedia/commons/8/8e/Semgrep_logo.svg)" alt="Continuous Monitoring" style="margin: 10px;">
+<img src="https://semgrep.dev/img/semgrep-icon-text-horizontal.svg" alt="Semgrep Analysis" height="40" style="margin: 10px;">
 <img src="https://img.shields.io/badge/🔍-Continuous%20Monitoring-blue?style=for-the-badge" alt="Continuous Monitoring" style="margin: 10px;">
 
 </div>
