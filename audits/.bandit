@@ -1,12 +1,6 @@
-[bandit]
 # Configuración de bandit para QuantumARK
-exclude_dirs = ['/Users/brx/Documents/QuantumARK/audits', '/Users/brx/Documents/QuantumARK/.git']
-skips = []
-tests = []
-
-[bandit.formatters]
-txt = bandit.formatters.text:report
-json = bandit.formatters.json:report
-csv = bandit.formatters.csv:report
-xml = bandit.formatters.xml:report
-html = bandit.formatters.html:report
+exclude_dirs:
+  - '/Users/brx/Documents/QuantumARK/audits'
+  - '/Users/brx/Documents/QuantumARK/.git'
+skips: []
+tests: []

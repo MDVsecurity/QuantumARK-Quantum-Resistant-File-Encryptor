@@ -2,8 +2,6 @@
 Setup script para crear aplicación macOS .app con py2app
 """
 
-import sys
-
 from setuptools import setup
 
 APP = ["QuantumARK.py"]

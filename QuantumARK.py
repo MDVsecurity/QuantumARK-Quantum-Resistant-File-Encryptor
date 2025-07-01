@@ -4,38 +4,27 @@ QR-AES-256 File Encryptor GUI
 Interfaz gráfica moderna para cifrar y descifrar archivos usando QR-AES-256
 """
 
-import base64
 import hashlib
 import json
 import os
 import platform
+import struct
 import threading
 import time
 import tkinter as tk
 from pathlib import Path
 from tkinter import filedialog, messagebox, scrolledtext, ttk
-from typing import Optional, Tuple
-
-# Platform-specific imports
-IS_WINDOWS = platform.system() == "Windows"
-if IS_WINDOWS:
-    try:
-        from winshell import win32con
-    except ImportError:
-        IS_WINDOWS = False
-
-# Importar nuestro algoritmo QR-AES-256
-# (En implementación real, esto sería: from qr_aes_256 import QRAES256, generate_qr_key)
-
-import os
-
-# Para esta demo, incluiremos una versión simplificada
-import secrets
-import struct
+from typing import Tuple
 
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
+
+# Platform-specific imports
+IS_WINDOWS = platform.system() == "Windows"
+
+# Importar nuestro algoritmo QR-AES-256
+# (En implementación real, esto sería: from qr_aes_256 import QRAES256, generate_qr_key)
 
 
 class SimpleQRAES:
@@ -212,10 +201,8 @@ class PasswordDialog:
             color = "orange"
         elif strength < 80:
             strength_text = "Strong"
-            color = "blue"
         else:
             strength_text = "Very Strong"
-            color = "green"
 
         self.strength_label.config(text=f"Strenght: {strength_text}")
 
@@ -788,12 +775,12 @@ Estado: Listo para descifrar"""
                 ),
             )
 
-        except Exception as e:
+        except Exception as error:
             self.root.after(
                 0, lambda: self.set_operation_state(False, "Error en cifrado")
             )
             self.root.after(
-                0, lambda: messagebox.showerror("Error", f"Error al cifrar: {str(e)}")
+                0, lambda: messagebox.showerror("Error", f"Error al cifrar: {str(error)}")
             )
 
     def decrypt_file(self):
@@ -914,13 +901,15 @@ Estado: Listo para descifrar"""
                 ),
             )
 
-        except Exception as e:
+        except Exception as error:
             self.root.after(
                 0, lambda: self.set_operation_state(False, "Error en descifrado")
             )
             self.root.after(
                 0,
-                lambda: messagebox.showerror("Error", f"Error al descifrar: {str(e)}"),
+                lambda: messagebox.showerror(
+                    "Error", f"Error al descifrar: {str(error)}"
+                ),
             )
 
     def set_operation_state(self, is_running, status_text):
@@ -1043,7 +1032,7 @@ class QRAESFileManager:
                     required_fields = ["filename", "size", "checksum", "algorithm"]
                     if not all(field in metadata for field in required_fields):
                         return False, "Metadatos incompletos"
-                except:
+                except Exception:
                     return False, "Metadatos corruptos"
 
                 return True, "Archivo válido"
@@ -1075,7 +1064,7 @@ def create_desktop_shortcut():
         shortcut.save()
 
         return True
-    except:
+    except Exception:
         return False
 
 
