@@ -1,0 +1,6 @@
+# Configuración de bandit para QuantumARK
+exclude_dirs:
+  - '/Users/brx/Documents/QuantumARK/audits'
+  - '/Users/brx/Documents/QuantumARK/.git'
+skips: []
+tests: []
